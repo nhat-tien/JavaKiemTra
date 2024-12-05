@@ -14,7 +14,6 @@ import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
 
 import com.mycompany.javakt.models.PhongBan;
-import com.mycompany.javakt.presenters.PhongBanPresenter;
 import com.mycompany.javakt.views.interfaces.PhongBanView;
 
 
@@ -24,9 +23,9 @@ public class PHONGBAN extends javax.swing.JFrame implements PhongBanView {
 
     private String idSelected;
 
-    public ActionListener OnAdd;
-    public ActionListener OnEdit;
-    public ActionListener OnDelete;
+    public ActionListener onAdd;
+    public ActionListener onEdit;
+    public ActionListener onDelete;
 
     public String getTenPhongBan() {
        return txtTenPB.getText();
@@ -55,6 +54,7 @@ public class PHONGBAN extends javax.swing.JFrame implements PhongBanView {
         tblPhongban = new javax.swing.JTable();
         txtTenPB = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        btnNew = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,17 +87,28 @@ public class PHONGBAN extends javax.swing.JFrame implements PhongBanView {
 
         jLabel1.setText("Tên Phòng Ban : ");
 
+        btnNew.setText("NEW");
+        btnNew.setToolTipText("");
+        btnNew.setName("btnNew"); // NOI18N
+        btnNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(btnAdd)
-                .addGap(24, 24, 24)
-                .addComponent(btnEdit)
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
+                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(btnNew)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDelete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(15, Short.MAX_VALUE)
@@ -116,23 +127,30 @@ public class PHONGBAN extends javax.swing.JFrame implements PhongBanView {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTenPB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
-                    .addComponent(btnEdit)
-                    .addComponent(btnDelete))
-                .addGap(20, 20, 20))
+                    .addComponent(btnDelete)
+                    .addComponent(btnNew)
+                    .addComponent(btnEdit))
+                .addGap(35, 35, 35))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
+      idSelected = "";
+      txtTenPB.setText("");
+      
+    }//GEN-LAST:event_btnNewActionPerformed
+
     public void initEvents() {
-        btnDelete.addActionListener(OnDelete);
-        btnEdit.addActionListener(OnEdit);
-        btnAdd.addActionListener(OnAdd);
+        btnDelete.addActionListener(onDelete);
+        btnEdit.addActionListener(onEdit);
+        btnAdd.addActionListener(onAdd);
         tblPhongban.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             if(tbm.getRowCount() > 0) {
             this.idSelected = tblPhongban.getValueAt(tblPhongban.getSelectedRow(),0).toString();
@@ -195,6 +213,7 @@ public class PHONGBAN extends javax.swing.JFrame implements PhongBanView {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnNew;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblPhongban;
@@ -205,19 +224,20 @@ public class PHONGBAN extends javax.swing.JFrame implements PhongBanView {
       this.setVisible(true);
       this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-
+    
+    @Override
     public void setOnAdd(ActionListener onAdd) {
-      OnAdd = onAdd;
+      this.onAdd = onAdd;
     }
 
-
+    @Override
     public void setOnEdit(ActionListener onEdit) {
-      OnEdit = onEdit;
+      this.onEdit = onEdit;
     }
 
-
+    @Override
     public void setOnDelete(ActionListener onDelete) {
-      OnDelete = onDelete;
+      this.onDelete = onDelete;
     }
 
 

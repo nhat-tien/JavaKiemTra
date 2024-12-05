@@ -22,9 +22,9 @@ public class PhongBanRepository {
       ResultSet rs = stm.executeQuery(query);
 
       while (rs.next()) { // Di chuyển con trỏ xuống bản ghi kế tiếp
-        String MaPB = rs.getString("MaPB");
+        long MaPB = rs.getLong("MaPB");
         String TenPB = rs.getString("TenPB");
-        list.add(new PhongBan(Long.parseLong(MaPB), TenPB));
+        list.add(new PhongBan(MaPB, TenPB));
       }
       return list;
     } catch (SQLException e) {
