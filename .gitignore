@@ -1,1 +1,4 @@
 /JavaKT/target/
+/JavaKT/.settings
+.classpath
+.project

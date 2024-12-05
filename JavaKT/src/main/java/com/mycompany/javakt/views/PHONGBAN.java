@@ -2,29 +2,45 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.javakt;
+package com.mycompany.javakt.views;
 
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
-import javax.swing.JOptionPane;
+import java.util.List;
+
+import javax.swing.JFrame;
 import javax.swing.event.ListSelectionEvent;
+
+import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
 
+import com.mycompany.javakt.models.PhongBan;
+import com.mycompany.javakt.presenters.PhongBanPresenter;
+import com.mycompany.javakt.views.interfaces.PhongBanView;
 
-public class PHONGBAN extends javax.swing.JFrame {
 
-     DefaultTableModel tbm =new DefaultTableModel(new String[][]{}, new String[]{"Mã số","Tên Phòng Ban"});
+public class PHONGBAN extends javax.swing.JFrame implements PhongBanView {
+
+    public DefaultTableModel tbm = new DefaultTableModel(new String[][]{}, new String[]{"Mã số","Tên Phòng Ban"});
 
     private String idSelected;
+
+    public ActionListener OnAdd;
+    public ActionListener OnEdit;
+    public ActionListener OnDelete;
+
+    public String getTenPhongBan() {
+       return txtTenPB.getText();
+    }
+    public void addRow(PhongBan pb) {
+      tbm.addRow(new String[] {String.valueOf(pb.getMaPB()), pb.getTenPB()});
+    } 
+    public String getIdSelected() {
+      return this.idSelected;
+    }
+
     public PHONGBAN() {
         initComponents();
         tblPhongban.setModel(tbm);
-        NapdulieuchoTable();
-        initEvents();
     }
 
 
@@ -43,25 +59,10 @@ public class PHONGBAN extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnEdit.setText("EDIT");
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditActionPerformed(evt);
-            }
-        });
 
         btnDelete.setText("DELETE");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
 
         btnAdd.setText("ADD");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
 
         tblPhongban.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -128,7 +129,10 @@ public class PHONGBAN extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void initEvents() {
+    public void initEvents() {
+        btnDelete.addActionListener(OnDelete);
+        btnEdit.addActionListener(OnEdit);
+        btnAdd.addActionListener(OnAdd);
         tblPhongban.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             if(tbm.getRowCount() > 0) {
             this.idSelected = tblPhongban.getValueAt(tblPhongban.getSelectedRow(),0).toString();
@@ -136,89 +140,23 @@ public class PHONGBAN extends javax.swing.JFrame {
             }
         });
     }
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        String tenpb = txtTenPB.getText();
-        Connection connect = MysqlConnection.createConnection();
-        String sql="insert into phongban(TenPB) values (?)";
-        try{
-                PreparedStatement ps=connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-                ps.setString(1,tenpb);
-                ps.executeUpdate();
-                ResultSet keys = ps.getGeneratedKeys();
-                keys.next();
-                long id = keys.getLong(1);
-                tbm.addRow(new String[] {String.valueOf(id), tenpb});
-                JOptionPane.showMessageDialog(this,"Thông báo","Thêm phòng ban thành công !",JOptionPane.INFORMATION_MESSAGE);
-            }catch (SQLException ex){
-                System.out.println(ex);
-            }
-    }//GEN-LAST:event_btnAddActionPerformed
-
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        String tenpb = txtTenPB.getText();
-        String mapb = idSelected;
-        Connection connect = MysqlConnection.createConnection();
-        String sql="update phongban set tenpb = ? where mapb = ?";
-        try{
-                PreparedStatement ps=connect.prepareStatement(sql);
-                ps.setString(1,tenpb);
-                ps.setString(2,mapb);
-                ps.executeUpdate();
-                XoaBang();
-                NapdulieuchoTable();
-                JOptionPane.showMessageDialog(this,"Thông báo","Sua phòng ban thành công !",JOptionPane.INFORMATION_MESSAGE);
-            }catch (SQLException ex){
-                System.out.println(ex);
-            }
-    }//GEN-LAST:event_btnEditActionPerformed
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        String mapb = idSelected;
-        Connection connect = MysqlConnection.createConnection();
-        String sql="delete from phongban where mapb = ?";
-        try{
-                PreparedStatement ps=connect.prepareStatement(sql);
-                ps.setString(1,mapb);
-                ps.executeUpdate();
-                XoaBang();
-                NapdulieuchoTable();
-                JOptionPane.showMessageDialog(this,"Thông báo","Delete phòng ban thành công !",JOptionPane.INFORMATION_MESSAGE);
-            }catch (SQLException ex){
-                System.out.println(ex);
-            }
-    }//GEN-LAST:event_btnDeleteActionPerformed
-    
-    private void XoaBang() {
+   
+    public void XoaBang() {
         tbm.setRowCount(0);
     }
-    private void NapdulieuchoTable()
+    public void NapdulieuchoTable(List<PhongBan> list)
     {
-        Connection conn = MysqlConnection.createConnection();
-        String query = "SELECT * FROM phongban";
-        
-        try {
-            //Tạo đối tượng Statement
-            Statement stm = conn.createStatement();
-            //Thực thi truy vấn và trả về đối tượng ResultSet
-            ResultSet rs = stm.executeQuery(query);
-        
-            while (rs.next()){  //Di chuyển con trỏ xuống bản ghi kế tiếp
-                String MaPB = rs.getString("MaPB");
-                String TenPB = rs.getString("TenPB");
-                tbm.addRow(new String[] {MaPB,TenPB});
-            }
-            //Đóng kết nối
-            conn.close();
-        } catch (SQLException e) {
-             System.out.println(e);
-        }
-        
+      for(PhongBan pb : list) {
+         tbm.addRow(new String[] {String.valueOf(pb.getMaPB()),pb.getTenPB()});
+      }
     }
     
     
     /**
      * @param args the command line arguments
      */
+
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -251,6 +189,7 @@ public class PHONGBAN extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -261,4 +200,25 @@ public class PHONGBAN extends javax.swing.JFrame {
     private javax.swing.JTable tblPhongban;
     private javax.swing.JTextField txtTenPB;
     // End of variables declaration//GEN-END:variables
+    @Override
+    public void open() {
+      this.setVisible(true);
+      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public void setOnAdd(ActionListener onAdd) {
+      OnAdd = onAdd;
+    }
+
+
+    public void setOnEdit(ActionListener onEdit) {
+      OnEdit = onEdit;
+    }
+
+
+    public void setOnDelete(ActionListener onDelete) {
+      OnDelete = onDelete;
+    }
+
+
 }

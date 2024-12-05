@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.javakt;
+package com.mycompany.javakt.views;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,11 +12,13 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import com.mycompany.javakt.views.interfaces.NhanVienView;
+
 /**
  *
  * @author To Trung Tin
  */
-public class NHANVIEN extends javax.swing.JFrame {
+public class NHANVIEN extends javax.swing.JFrame implements NhanVienView {
     DefaultTableModel tbm =new DefaultTableModel(new String[][]{}, new String[]{"Mã số","Tên Nhân Viên","Mức Lương","Phòng Ban"});
     /**
      * Creates new form NHANVIEN
@@ -150,24 +152,6 @@ public class NHANVIEN extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-               String tennv = txtTenNV.getText();
-               String mucluong = txtMucluong.getText();
-        Connection connect = MysqlConnection.createConnection();
-        String sql="insert into nhanvien(TenNV,MucLuong,MaPB) values (?,?,?)";
-        try{
-                PreparedStatement ps=connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-                ps.setString(1,tennv);
-                ps.setString(2,mucluong);
-                ps.setString(3,mapb); 
-                ps.executeUpdate();
-                ResultSet keys = ps.getGeneratedKeys();
-                keys.next();
-                long id = keys.getLong(1);
-                tbm.addRow(new String[] {String.valueOf(id), tennv,mucluong,mapb});
-                JOptionPane.showMessageDialog(this,"Thông báo","Thêm phòng ban thành công !",JOptionPane.INFORMATION_MESSAGE);
-            }catch (SQLException ex){
-                System.out.println(ex);
-            }
     }//GEN-LAST:event_btnAddActionPerformed
 
     /**
