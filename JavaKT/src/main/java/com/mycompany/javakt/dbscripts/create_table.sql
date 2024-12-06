@@ -1,6 +1,6 @@
 CREATE TABLE phongban (
    MaPB int  NOT NULL AUTO_INCREMENT,
-   TenPB nvarchar(255),
+   TenPB nvarchar(255) UNIQUE,
   PRIMARY KEY(MaPB)
 );
 

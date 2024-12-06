@@ -5,6 +5,7 @@ public class NhanVien {
     private long maNV;
     private String tenNV;
     private int mucLuong;
+    private long maPB;
     private PhongBan phongBan;
 
     public NhanVien(long maNV, String tenNV, int mucLuong, PhongBan phongBan) {
@@ -12,6 +13,19 @@ public class NhanVien {
         this.tenNV = tenNV;
         this.mucLuong = mucLuong;
         this.phongBan = phongBan;
+    }
+
+    public NhanVien(long maNV, String tenNV, int mucLuong, long maPB) {
+        this.maNV = maNV;
+        this.tenNV = tenNV;
+        this.mucLuong = mucLuong;
+        this.maPB = maPB;
+    }
+
+    public NhanVien(String tenNV, int mucLuong, long maPB) {
+      this.tenNV = tenNV;
+      this.mucLuong = mucLuong;
+      this.maPB = maPB;
     }
 
     public long getMaNV() {
@@ -46,5 +60,13 @@ public class NhanVien {
         this.phongBan = phongBan;
     }
     
+    public void setMaPB(long maPB) {
+      this.maPB = maPB;
+    }
+
+    public long getMaPB() {
+      return maPB;
+    }
+
     
 }

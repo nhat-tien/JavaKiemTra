@@ -9,6 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 public class PhongBanRepository {
 
   public PhongBanRepository() {}
@@ -28,7 +30,7 @@ public class PhongBanRepository {
       }
       return list;
     } catch (SQLException e) {
-      System.out.println(e);
+      System.out.println("From PhongBanRepo - getAll() " + e.getMessage());
       return list;
     }
   }
@@ -45,7 +47,7 @@ public class PhongBanRepository {
       // JOptionPane.showMessageDialog("Thông báo","Sua phòng ban thành công
       // !",JOptionPane.INFORMATION_MESSAGE);
     } catch (SQLException ex) {
-      System.out.println(ex);
+      System.out.println("From PhongBanRepo - update() " + ex.getMessage());
       return null;
     }
   }
@@ -61,11 +63,12 @@ public class PhongBanRepository {
       long id = keys.getLong(1);
       pb.setMaPB(id);
       return pb;
-      // tbm.addRow(new String[] {String.valueOf(id), tenpb});
-      // JOptionPane.showMessageDialog(this,"Thông báo","Thêm phòng ban thành công
-      // !",JOptionPane.INFORMATION_MESSAGE);
     } catch (SQLException ex) {
-      System.out.println(ex);
+      // Duplicate key exception
+      if(ex.getErrorCode() == 1062) {
+        JOptionPane.showMessageDialog(null,"Dữ liệu bị trùng lặp","Warning",JOptionPane.WARNING_MESSAGE);
+      }
+      System.out.println("From PhongBanRepo - add() " + ex.getMessage());
       return null;
     }
   }
@@ -78,10 +81,8 @@ public class PhongBanRepository {
       ps.setString(1, id);
       ps.executeUpdate();
       return 1;
-      // JOptionPane.showMessageDialog(this,"Thông báo","Delete phòng ban thành công
-      // !",JOptionPane.INFORMATION_MESSAGE);
     } catch (SQLException ex) {
-      System.out.println(ex);
+      System.out.println("From PhongBanRepo - delete() " + ex.getMessage());
       return 0;
     }
   }

@@ -16,7 +16,7 @@ public class NhanVienRepository {
   public NhanVienRepository() {}
 
   public List<NhanVien> getAll() {
-    String query = "SELECT nv.MaNV, nv.TenNV, nv.MucLuong, nv.MaPB, pb.TenPB FROM nhanvien nv LEFT JOIN phongban pb";
+    String query = "SELECT nv.MaNV, nv.TenNV, nv.MucLuong, nv.MaPB, pb.TenPB FROM nhanvien nv LEFT JOIN phongban pb ON nv.MaPB = pb.MaPB";
     List<NhanVien> list = new ArrayList<>();
 
     try (Connection conn = MysqlConnection.createConnection();
@@ -36,7 +36,7 @@ public class NhanVienRepository {
       }
       return list;
     } catch (SQLException e) {
-      System.out.println(e);
+      System.out.println("From NhanVienRepo - getAll() " + e.getMessage());
       return list;
     }
   }
@@ -48,23 +48,23 @@ public class NhanVienRepository {
         PreparedStatement ps = connect.prepareStatement(sql); ) {
       ps.setString(1, nv.getTenNV());
       ps.setInt(2, nv.getMucLuong());
-      ps.setLong(3, nv.getPhongBan().getMaPB());
+      ps.setLong(3, nv.getMaPB());
       ps.setLong(4, nv.getMaNV());
       ps.executeUpdate();
       return nv;
     } catch (SQLException ex) {
-      System.out.println(ex);
+      System.out.println("From NhanVienRepo - update() " + ex.getMessage());
       return null;
     }
   }
 
   public NhanVien add(NhanVien nv) {
-    String sql = "insert into phongban(TenNV, MucLuong, MaPB) values (?, ?, ?)";
+    String sql = "insert into nhanvien(TenNV, MucLuong, MaPB) values (?, ?, ?)";
     try (Connection connect = MysqlConnection.createConnection();
         PreparedStatement ps = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS); ) {
       ps.setString(1, nv.getTenNV());
       ps.setInt(2, nv.getMucLuong());
-      ps.setLong(3, nv.getPhongBan().getMaPB());
+      ps.setLong(3, nv.getMaPB());
       ps.executeUpdate();
       ResultSet keys = ps.getGeneratedKeys();
       keys.next();
@@ -72,13 +72,13 @@ public class NhanVienRepository {
       nv.setMaNV(id);
       return nv;
     } catch (SQLException ex) {
-      System.out.println(ex);
+      System.out.println("From NhanVienRepo - add() " + ex.getMessage());
       return null;
     }
   }
 
   public int delete(String id) {
-    String sql = "delete from phongban where mapb = ?";
+    String sql = "delete from nhanvien where manv = ?";
     try (Connection connect = MysqlConnection.createConnection();
         PreparedStatement ps = connect.prepareStatement(sql); ) {
 
@@ -86,7 +86,7 @@ public class NhanVienRepository {
       ps.executeUpdate();
       return 1;
     } catch (SQLException ex) {
-      System.out.println(ex);
+      System.out.println("From NhanVienRepo - delete() " + ex.getMessage());
       return 0;
     }
   }

@@ -11,6 +11,7 @@ public interface NhanVienView {
   void setOnAdd(ActionListener onAdd);
   void setOnEdit(ActionListener onEdit);
   void setOnDelete(ActionListener onDelete);
+  void setOnChangePhongBan(ActionListener onChangePhongBan);
   void NapdulieuchoTable(List<NhanVien> list);
   void XoaBang();
   void addRow(NhanVien nv);
@@ -18,5 +19,8 @@ public interface NhanVienView {
   void initEvents();
   String getTenNV();
   String getMucLuong();
- void initDataCompobox(List<PhongBan> pblist);
+  long getMaPB();
+  void initDataCompobox(List<PhongBan> pblist);
+  void dispose();
+  PhongBan phongBanSelected();
 }

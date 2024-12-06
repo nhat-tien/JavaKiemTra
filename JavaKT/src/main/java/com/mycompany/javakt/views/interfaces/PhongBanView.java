@@ -10,10 +10,12 @@ public interface PhongBanView {
   void setOnAdd(ActionListener onAdd);
   void setOnEdit(ActionListener onAdd);
   void setOnDelete(ActionListener onAdd);
+  void setOnChangeNhanVien(ActionListener onChangeNhanVien);
   void NapdulieuchoTable(List<PhongBan> list);
   void XoaBang();
   void addRow(PhongBan pb);
   String getTenPhongBan();
   String getIdSelected();
   void initEvents();
+  void dispose();
 }

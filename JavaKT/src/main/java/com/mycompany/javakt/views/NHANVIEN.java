@@ -6,12 +6,13 @@ package com.mycompany.javakt.views;
 
 import com.mycompany.javakt.models.NhanVien;
 import com.mycompany.javakt.models.PhongBan;
+import com.mycompany.javakt.renderers.PhongBanComponentRenderer;
 import com.mycompany.javakt.views.interfaces.NhanVienView;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.MutableComboBoxModel;
 import javax.swing.event.ListSelectionEvent;
@@ -27,6 +28,7 @@ public class NHANVIEN extends javax.swing.JFrame implements NhanVienView {
           new String[][] {}, new String[] {"Mã số", "Tên Nhân Viên", "Mức Lương", "Phòng Ban"});
 
   MutableComboBoxModel<PhongBan> cbm = new DefaultComboBoxModel<PhongBan>();
+  private List<PhongBan> pbList;
 
 
   private String idSelected;
@@ -34,12 +36,14 @@ public class NHANVIEN extends javax.swing.JFrame implements NhanVienView {
   public ActionListener onAdd;
   public ActionListener onEdit;
   public ActionListener onDelete;
+  public ActionListener onChangeToPhongBan;
 
   /** Creates new form NHANVIEN */
   public NHANVIEN() {
     initComponents();
     tblNhanvien.setModel(tbm);
     cbbPhongban.setModel(cbm);
+    cbbPhongban.setRenderer(new PhongBanComponentRenderer());
   }
 
   /**
@@ -60,18 +64,15 @@ public class NHANVIEN extends javax.swing.JFrame implements NhanVienView {
         btnAdd = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        cbbPhongban = new javax.swing.JComboBox<PhongBan>();
+        cbbPhongban = new javax.swing.JComboBox<>();
         btnNew = new javax.swing.JButton();
+        btnPhongBan = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Tên Nhân Viên");
 
         jLabel2.setText("Mức Lương :");
-
-        txtTenNV.setText("jTextField1");
-
-        txtMucluong.setText("jTextField1");
 
         tblNhanvien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -89,12 +90,6 @@ public class NHANVIEN extends javax.swing.JFrame implements NhanVienView {
         btnEdit.setText("EDIT");
 
         btnAdd.setText("ADD");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
-
         btnDelete.setText("DELETE");
 
         jLabel3.setText("Phòng Ban :");
@@ -105,6 +100,8 @@ public class NHANVIEN extends javax.swing.JFrame implements NhanVienView {
                 btnNewActionPerformed(evt);
             }
         });
+
+        btnPhongBan.setText("Phòng Ban");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -125,7 +122,9 @@ public class NHANVIEN extends javax.swing.JFrame implements NhanVienView {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(txtTenNV, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtMucluong, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
-                                    .addComponent(cbbPhongban, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                    .addComponent(cbbPhongban, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(btnPhongBan))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(btnAdd)
@@ -135,7 +134,7 @@ public class NHANVIEN extends javax.swing.JFrame implements NhanVienView {
                         .addComponent(btnEdit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDelete)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,11 +147,16 @@ public class NHANVIEN extends javax.swing.JFrame implements NhanVienView {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtMucluong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(cbbPhongban, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(cbbPhongban, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(btnPhongBan)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -160,14 +164,17 @@ public class NHANVIEN extends javax.swing.JFrame implements NhanVienView {
                     .addComponent(btnAdd)
                     .addComponent(btnNew)
                     .addComponent(btnEdit))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
-     
+       this.idSelected = "";
+       this.txtTenNV.setText("");
+       this.txtMucluong.setText("");
+       this.cbbPhongban.setSelectedIndex(0);
     }//GEN-LAST:event_btnNewActionPerformed
 
   /**
@@ -216,6 +223,7 @@ public class NHANVIEN extends javax.swing.JFrame implements NhanVienView {
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnNew;
+    private javax.swing.JButton btnPhongBan;
     private javax.swing.JComboBox<PhongBan> cbbPhongban;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -244,6 +252,11 @@ public class NHANVIEN extends javax.swing.JFrame implements NhanVienView {
   @Override
   public void setOnDelete(ActionListener onDelete) {
     this.onDelete = onDelete;
+  }
+
+  @Override
+  public void setOnChangePhongBan(ActionListener onChangePhongBan) {
+    this.onChangeToPhongBan = onChangePhongBan;
   }
 
   @Override
@@ -285,20 +298,36 @@ public class NHANVIEN extends javax.swing.JFrame implements NhanVienView {
     btnDelete.addActionListener(onDelete);
     btnEdit.addActionListener(onEdit);
     btnAdd.addActionListener(onAdd);
+    btnPhongBan.addActionListener(onChangeToPhongBan);
     tblNhanvien
         .getSelectionModel()
         .addListSelectionListener(
             (ListSelectionEvent event) -> {
-              if (tbm.getRowCount() > 0) {
+              if (tblNhanvien.getSelectedRow() >= 0) {
                 this.idSelected =
                     tblNhanvien.getValueAt(tblNhanvien.getSelectedRow(), 0).toString();
                 this.txtTenNV.setText(
                     tblNhanvien.getValueAt(tblNhanvien.getSelectedRow(), 1).toString());
                 this.txtMucluong.setText(
                     tblNhanvien.getValueAt(tblNhanvien.getSelectedRow(), 2).toString());
+                setSelectedValue(tblNhanvien.getValueAt(tblNhanvien.getSelectedRow(), 3).toString());
               }
             });
   }
+
+  public void setSelectedValue(String value)
+    {
+        PhongBan item;
+        for (int i = 0; i < this.cbbPhongban.getItemCount(); i++)
+        {
+            item = (PhongBan) this.cbbPhongban.getItemAt(i);
+            if (item.getTenPB().equalsIgnoreCase(value))
+            {
+                this.cbbPhongban.setSelectedIndex(i);
+                break;
+            }
+        }
+    }
 
   @Override
   public String getTenNV() {
@@ -311,8 +340,21 @@ public class NHANVIEN extends javax.swing.JFrame implements NhanVienView {
   }
 
   public void initDataCompobox(List<PhongBan> pblist) {
+    this.pbList = pblist;
     for(PhongBan pb : pblist) {
       cbm.addElement(pb);
     }
   }
+
+  @Override
+  public long getMaPB() {
+    PhongBan pb = phongBanSelected();
+    return pb.getMaPB();
+  }
+
+  public PhongBan phongBanSelected() {
+    PhongBan pb = (PhongBan) cbbPhongban.getSelectedItem();
+    return pb;
+  }
+
 }

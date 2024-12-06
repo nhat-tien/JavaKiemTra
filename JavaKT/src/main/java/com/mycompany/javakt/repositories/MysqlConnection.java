@@ -25,9 +25,8 @@ public class MysqlConnection {
 
         try {
             conn = DriverManager.getConnection(connectionURL, username, password);
-            System.out.println("Kết nối thành công");
         } catch (SQLException e) {
-           System.out.println(e.getMessage());
+           System.out.println("From MysqlConnection" + e.getMessage());
         }
 
         return conn;

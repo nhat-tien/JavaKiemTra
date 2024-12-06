@@ -11,13 +11,41 @@ public class PhongBan {
         this.tenPB = tenPB;
     }
 
-    public PhongBan(String tenPB) {
-      this.tenPB = tenPB;
+    // @Override
+    // public String toString() {
+    //   return "PhongBan []";
+    // }
+
+    @Override
+    public int hashCode() {
+      final int prime = 31;
+      int result = 1;
+      result = prime * result + (int) (maPB ^ (maPB >>> 32));
+      result = prime * result + ((tenPB == null) ? 0 : tenPB.hashCode());
+      return result;
     }
 
     @Override
-    public String toString() {
-      return tenPB;
+    public boolean equals(Object obj) {
+      if (this == obj)
+        return true;
+      if (obj == null)
+        return false;
+      if (getClass() != obj.getClass())
+        return false;
+      PhongBan other = (PhongBan) obj;
+      if (maPB != other.maPB)
+        return false;
+      if (tenPB == null) {
+        if (other.tenPB != null)
+          return false;
+      } else if (!tenPB.equals(other.tenPB))
+        return false;
+      return true;
+    }
+
+    public PhongBan(String tenPB) {
+      this.tenPB = tenPB;
     }
 
     public long getMaPB() {

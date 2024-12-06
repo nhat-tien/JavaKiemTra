@@ -20,6 +20,7 @@ public class PhongBanPresenter {
     this.view.setOnAdd((ActionEvent e) -> handleAdd(e));
     this.view.setOnEdit((ActionEvent e) -> handleEdit(e));
     this.view.setOnDelete((ActionEvent e) -> handleDelete(e));
+    this.view.setOnChangeNhanVien((ActionEvent e) -> handleChange(e));
     this.view.initEvents();
   }
   
@@ -35,7 +36,9 @@ public class PhongBanPresenter {
     }
     PhongBan pb = new PhongBan(view.getTenPhongBan().trim());
     PhongBan newPb = repository.add(pb);
-    view.addRow(newPb);
+    if(newPb != null) {
+      view.addRow(newPb);
+    }
   }
 
   public void handleEdit(ActionEvent event) {
@@ -53,5 +56,11 @@ public class PhongBanPresenter {
     repository.delete(view.getIdSelected());
     view.XoaBang();
     view.NapdulieuchoTable(repository.getAll());
+  }
+
+  public void handleChange(ActionEvent event) {
+    NhanVienPresenter presenter = new NhanVienPresenter();
+    presenter.start();
+    this.view.dispose();
   }
 }
