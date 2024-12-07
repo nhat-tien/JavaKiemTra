@@ -1,12 +1,12 @@
 CREATE TABLE phongban (
    MaPB int  NOT NULL AUTO_INCREMENT,
-   TenPB nvarchar(255) UNIQUE,
+   TenPB varchar(255) UNIQUE,
   PRIMARY KEY(MaPB)
 );
 
 CREATE TABLE nhanvien (
    MaNV int NOT NULL AUTO_INCREMENT,
-   TenNV nvarchar(255),
+   TenNV varchar(255),
    MucLuong int,
    MaPB int,
   PRIMARY KEY(MaNV),

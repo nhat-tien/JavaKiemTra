@@ -8,6 +8,7 @@ import com.mycompany.javakt.models.PhongBan;
 import com.mycompany.javakt.views.interfaces.PhongBanView;
 import java.awt.event.ActionListener;
 import java.util.List;
+import javafx.scene.input.KeyCode;
 import javax.swing.JFrame;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
@@ -42,169 +43,110 @@ public class PHONGBAN extends javax.swing.JFrame implements PhongBanView {
   }
 
   @SuppressWarnings("unchecked")
-  // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-  private void initComponents() {
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-    btnEdit = new javax.swing.JButton();
-    btnDelete = new javax.swing.JButton();
-    btnAdd = new javax.swing.JButton();
-    jScrollPane1 = new javax.swing.JScrollPane();
-    tblPhongban = new javax.swing.JTable();
-    txtTenPB = new javax.swing.JTextField();
-    jLabel1 = new javax.swing.JLabel();
-    btnNew = new javax.swing.JButton();
-    btnNhanVien = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblPhongban = new javax.swing.JTable();
+        txtTenPB = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        btnNew = new javax.swing.JButton();
+        btnNhanVien = new javax.swing.JButton();
 
-    setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-    btnEdit.setText("EDIT");
+        btnEdit.setText("EDIT");
 
-    btnDelete.setText("DELETE");
+        btnDelete.setText("DELETE");
 
-    btnAdd.setText("ADD");
+        btnAdd.setText("ADD");
 
-    tblPhongban.setModel(
-        new javax.swing.table.DefaultTableModel(
-            new Object[][] {
-              {null, null},
-              {null, null},
-              {null, null},
-              {null, null}
+        tblPhongban.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
-            new String[] {"Mã Phòng Ban", "Tên Phòng Ban"}) {
-          Class[] types = new Class[] {java.lang.Integer.class, java.lang.String.class};
+            new String [] {
+                "Mã Phòng Ban", "Tên Phòng Ban"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class
+            };
 
-          public Class getColumnClass(int columnIndex) {
-            return types[columnIndex];
-          }
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
         });
-    jScrollPane1.setViewportView(tblPhongban);
+        jScrollPane1.setViewportView(tblPhongban);
 
-    jLabel1.setText("Tên Phòng Ban : ");
+        jLabel1.setText("Tên Phòng Ban : ");
 
-    btnNew.setText("NEW");
-    btnNew.setToolTipText("");
-    btnNew.setName("btnNew"); // NOI18N
-    btnNew.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            btnNewActionPerformed(evt);
-          }
+        btnNew.setText("NEW");
+        btnNew.setToolTipText("");
+        btnNew.setName("btnNew"); // NOI18N
+        btnNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewActionPerformed(evt);
+            }
         });
 
-    btnNhanVien.setText("Nhân Viên");
+        btnNhanVien.setText("Nhân Viên");
 
-    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-    getContentPane().setLayout(layout);
-    layout.setHorizontalGroup(
-        layout
-            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(
-                layout
-                    .createSequentialGroup()
-                    .addGap(13, 13, 13)
-                    .addGroup(
-                        layout
-                            .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(
-                                layout
-                                    .createParallelGroup(
-                                        javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(
-                                        layout
-                                            .createSequentialGroup()
-                                            .addComponent(
-                                                jLabel1,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                Short.MAX_VALUE)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(
-                                                txtTenPB,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                187,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(
-                                        jScrollPane1,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        301,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(
-                                layout
-                                    .createSequentialGroup()
-                                    .addComponent(
-                                        btnAdd,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        60,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(12, 12, 12)
-                                    .addComponent(btnNew)
-                                    .addPreferredGap(
-                                        javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(btnDelete)
-                                    .addPreferredGap(
-                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(
-                                        btnEdit,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        59,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGap(18, 18, 18)
-                    .addComponent(btnNhanVien)
-                    .addContainerGap(13, Short.MAX_VALUE)));
-    layout.setVerticalGroup(
-        layout
-            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(
-                javax.swing.GroupLayout.Alignment.TRAILING,
-                layout
-                    .createSequentialGroup()
-                    .addGap(17, 17, 17)
-                    .addGroup(
-                        layout
-                            .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(
-                                txtTenPB,
-                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                    .addGroup(
-                        layout
-                            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(
-                                layout
-                                    .createSequentialGroup()
-                                    .addPreferredGap(
-                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        Short.MAX_VALUE)
-                                    .addComponent(
-                                        jScrollPane1,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        238,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18))
-                            .addGroup(
-                                layout
-                                    .createSequentialGroup()
-                                    .addGap(23, 23, 23)
-                                    .addComponent(btnNhanVien)
-                                    .addPreferredGap(
-                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        Short.MAX_VALUE)))
-                    .addGroup(
-                        layout
-                            .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAdd)
-                            .addComponent(btnDelete)
-                            .addComponent(btnNew)
-                            .addComponent(btnEdit))
-                    .addGap(35, 35, 35)));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(btnNew)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnDelete)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnNhanVien))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtTenPB, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTenPB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAdd)
+                    .addComponent(btnDelete)
+                    .addComponent(btnNew)
+                    .addComponent(btnEdit)
+                    .addComponent(btnNhanVien))
+                .addGap(35, 35, 35))
+        );
 
-    pack();
-  } // </editor-fold>//GEN-END:initComponents
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
 
   private void btnNewActionPerformed(
       java.awt.event.ActionEvent evt) { // GEN-FIRST:event_btnNewActionPerformed
@@ -282,18 +224,17 @@ public class PHONGBAN extends javax.swing.JFrame implements PhongBanView {
         });
   }
 
-  // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JButton btnAdd;
-  private javax.swing.JButton btnDelete;
-  private javax.swing.JButton btnEdit;
-  private javax.swing.JButton btnNew;
-  private javax.swing.JButton btnNhanVien;
-  private javax.swing.JLabel jLabel1;
-  private javax.swing.JScrollPane jScrollPane1;
-  private javax.swing.JTable tblPhongban;
-  private javax.swing.JTextField txtTenPB;
-
-  // End of variables declaration//GEN-END:variables
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnNew;
+    private javax.swing.JButton btnNhanVien;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblPhongban;
+    private javax.swing.JTextField txtTenPB;
+    // End of variables declaration//GEN-END:variables
   @Override
   public void open() {
     this.setVisible(true);
