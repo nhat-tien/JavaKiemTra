@@ -4,7 +4,8 @@
 
 package com.mycompany.javakt;
 
-import javax.swing.JFrame;
+import com.mycompany.javakt.presenters.NhanVienPresenter;
+import com.mycompany.javakt.presenters.PhongBanPresenter;
 
 /**
  *
@@ -13,8 +14,10 @@ import javax.swing.JFrame;
 public class JavaKT {
 
     public static void main(String[] args) {
-        PHONGBAN jv = new PHONGBAN();
-        jv.setVisible(true);
-        jv.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // PhongBanPresenter presenter = new PhongBanPresenter();
+        // presenter.start();
+        NhanVienPresenter nhanVienPresenter = new NhanVienPresenter();
+        nhanVienPresenter.start();
+        //PHONGBAN form = new PHONGBAN();
     }
 }
